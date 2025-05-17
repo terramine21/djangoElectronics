@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'trainer/base.html' %}
+{% block title %}{{ problem.title }}{% endblock %}
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">{{ problem.title }}</h1>
+    <p class="mb-4">{{ problem.description }}</p>
+    <p class="mb-4">Единица измерения: {{ problem.unit }}</p>
+    {% if user.is_authenticated %}
+        <form method="POST" class="mb-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Отправить ответ</button>
+        </form>
+    {% else %}
+        <p>Пожалуйста, <a href="{% url 'login' %}" class="text-blue-600 hover:underline">войдите</a>, чтобы решать задачи.</p>
+    {% endif %}
+{% endblock %}

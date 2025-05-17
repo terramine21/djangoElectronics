@@ -1,0 +1,26 @@
+{% extends 'trainer/base.html' %}
+{% block title %}Вход{% endblock %}
+{% block content %}
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Вход</h1>
+        {% if form.errors %}
+            <p class="text-red-600 mb-4">Неверный логин или пароль. Попробуйте снова.</p>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="{{ form.username.id_for_label }}" class="block text-gray-700">Имя пользователя:</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-4">
+                <label for="{{ form.password.id_for_label }}" class="block text-gray-700">Пароль:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Войти</button>
+        </form>
+        <p class="mt-4 text-center">
+            Нет аккаунта? Обратитесь к администратору для создания учетной записи.
+        </p>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}">
+{% endblock %}

@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'trainer/base.html' %}
+{% block title %}Список задач{% endblock %}
+{% block content %}
+    <h1 class="text-2xl font-bold mb-4">Каталог задач</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for problem in problems %}
+            <div class="bg-white p-4 rounded shadow">
+                <h2 class="text-xl font-semibold">{{ problem.title }}</h2>
+                <p class="text-gray-600">{{ problem.topic }}</p>
+                <a href="{% url 'problem_detail' problem.pk %}" class="text-blue-600 hover:underline">Решить задачу</a>
+            </div>
+        {% empty %}
+            <p>Задачи отсутствуют.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

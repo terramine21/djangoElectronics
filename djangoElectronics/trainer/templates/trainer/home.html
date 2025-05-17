@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'trainer/base.html' %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="text-center">
+        <h1 class="text-3xl font-bold mb-4">Добро пожаловать в тренажер по электрическим цепям!</h1>
+        <p class="text-lg mb-4">Изучайте законы Ома, Кирхгофа и решайте задачи по электрическим цепям.</p>
+        <a href="{% url 'problem_list' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Перейти к задачам</a>
+    </div>
+{% endblock %}
