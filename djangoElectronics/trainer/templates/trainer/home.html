@@ -5,5 +5,10 @@
         <h1 class="text-3xl font-bold mb-4">Добро пожаловать в тренажер по электрическим цепям!</h1>
         <p class="text-lg mb-4">Изучайте законы Ома, Кирхгофа и решайте задачи по электрическим цепям.</p>
         <a href="{% url 'problem_list' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Перейти к задачам</a>
+        {% if user.is_superuser %}
+            <div class="mt-4">
+                <a href="{% url 'create_problem' %}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Создать задачу</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

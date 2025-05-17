@@ -1,0 +1,19 @@
+{% extends 'trainer/base.html' %}
+{% block title %}Создать задачу{% endblock %}
+{% block content %}
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Создать новую задачу</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-4 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} rounded">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Создать задачу</button>
+        </form>
+    </div>
+{% endblock %}
