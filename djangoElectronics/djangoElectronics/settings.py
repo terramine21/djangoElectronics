@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y2m8nc5-kl5k3=jh)8#r*6-3d#6nb0pvimiy1kq=ve4z6@wdyq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'trainer.apps.TrainerConfig',
+    'trainer',
 ]
 
 MIDDLEWARE = [
