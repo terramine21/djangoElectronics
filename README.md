@@ -37,7 +37,7 @@
 1. **Клонируйте репозиторий**:
    ```bash
    git clone https://github.com/terramine21/djangoElectronics.git
-   cd djangoElectronics
+   cd djangoElectronics/djangoElectronics
    ```
 
 2. **Установите зависимости**:
