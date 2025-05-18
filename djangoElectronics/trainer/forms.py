@@ -2,6 +2,7 @@
 
 from django import forms
 from .models import Problem
+from .utils import validate_number_range, validate_title, validate_description, validate_unit
 
 
 class AnswerForm(forms.Form):
@@ -15,13 +16,9 @@ class AnswerForm(forms.Form):
     )
 
     def clean_answer(self):
-        """Проверяет, что ответ находится в диапазоне от -1000 до 1000."""
+        """Проверяет валидность ответа."""
         answer = self.cleaned_data['answer']
-        if not -1000 <= answer <= 1000:
-            raise forms.ValidationError(
-                "Ответ должен быть в диапазоне от -1000 до 1000"
-            )
-        return answer
+        return validate_number_range(answer)
 
 
 class ProblemForm(forms.ModelForm):
@@ -60,43 +57,21 @@ class ProblemForm(forms.ModelForm):
         }
 
     def clean_correct_answer(self):
-        """Проверяет, что правильный ответ в диапазоне от -1000 до 1000."""
+        """Проверяет валидность правильного ответа."""
         correct_answer = self.cleaned_data['correct_answer']
-        if not -1000 <= correct_answer <= 1000:
-            raise forms.ValidationError(
-                "Правильный ответ должен быть в диапазоне от -1000 до 1000"
-            )
-        return correct_answer
+        return validate_number_range(correct_answer)
 
     def clean_title(self):
-        """Проверяет длину названия задачи."""
+        """Проверяет валидность названия."""
         title = self.cleaned_data['title']
-        if len(title) < 5:
-            raise forms.ValidationError(
-                "Название задачи должно содержать не менее 5 символов"
-            )
-        if len(title) > 200:
-            raise forms.ValidationError(
-                "Название задачи не должно превышать 200 символов"
-            )
-        return title
+        return validate_title(title)
 
     def clean_description(self):
-        """Проверяет длину описания задачи."""
+        """Проверяет валидность описания."""
         description = self.cleaned_data['description']
-        if len(description) < 10:
-            raise forms.ValidationError(
-                "Описание задачи должно содержать не менее 10 символов"
-            )
-        return description
+        return validate_description(description)
 
     def clean_unit(self):
-        """Проверяет длину единицы измерения."""
+        """Проверяет валидность единицы измерения."""
         unit = self.cleaned_data['unit']
-        if len(unit) < 1:
-            raise forms.ValidationError("Единица измерения не может быть пустой")
-        if len(unit) > 50:
-            raise forms.ValidationError(
-                "Единица измерения не должна превышать 50 символов"
-            )
-        return unit
+        return validate_unit(unit)

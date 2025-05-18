@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from .models import Problem, UserAnswer
 from .forms import AnswerForm, ProblemForm
+from .utils import create_user_answer
 
 
 def home(request):
@@ -27,13 +28,7 @@ def problem_detail(request, pk):
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.cleaned_data['answer']
-            is_correct = abs(answer - problem.correct_answer) < 0.01
-            UserAnswer.objects.create(
-                user=request.user,
-                problem=problem,
-                answer=answer,
-                is_correct=is_correct
-            )
+            create_user_answer(request.user, problem, answer)
             return redirect('result', pk=pk)
     else:
         form = AnswerForm()
