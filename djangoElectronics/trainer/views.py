@@ -52,3 +52,12 @@ def create_problem(request):
     else:
         form = ProblemForm()
     return render(request, 'trainer/create_problem.html', {'form': form})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_problem(request, pk):
+    problem = get_object_or_404(Problem, pk=pk)
+    if request.method == 'POST':
+        problem.delete()
+        messages.success(request, 'Задача успешно удалена!')
+        return redirect('problem_list')
+    return render(request, 'trainer/delete_problem_confirm.html', {'problem': problem})

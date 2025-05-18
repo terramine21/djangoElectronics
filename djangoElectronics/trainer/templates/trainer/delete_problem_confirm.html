@@ -1,0 +1,15 @@
+{% extends 'trainer/base.html' %}
+{% block title %}Удалить задачу{% endblock %}
+{% block content %}
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Удалить задачу</h1>
+        <p class="mb-4">Вы уверены, что хотите удалить задачу "{{ problem.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="flex justify-between">
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Удалить</button>
+                <a href="{% url 'problem_list' %}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Отмена</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
