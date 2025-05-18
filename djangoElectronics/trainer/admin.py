@@ -1,14 +1,20 @@
+"""Модуль админ-панели для моделей приложения trainer."""
+
 from django.contrib import admin
 from .models import Problem, UserAnswer
 
+
 @admin.register(Problem)
 class ProblemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'topic', 'unit', 'created_at')  # Поля для отображения в списке
-    list_filter = ('topic',)  # Фильтр по теме
-    search_fields = ('title', 'description')  # Поиск по названию и описанию
+    """Класс админ-панели для модели Problem."""
+    list_display = ('title', 'topic', 'unit', 'created_at')
+    list_filter = ('topic',)
+    search_fields = ('title', 'description')
+
 
 @admin.register(UserAnswer)
 class UserAnswerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'problem', 'answer', 'is_correct', 'submitted_at')  # Поля для отображения
-    list_filter = ('is_correct', 'submitted_at')  # Фильтры
-    search_fields = ('user__username', 'problem__title')  # Поиск по пользователю и задаче
+    """Класс админ-панели для модели UserAnswer."""
+    list_display = ('user', 'problem', 'answer', 'is_correct', 'submitted_at')
+    list_filter = ('is_correct', 'submitted_at')
+    search_fields = ('user__username', 'problem__title')

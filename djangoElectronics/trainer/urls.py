@@ -1,3 +1,5 @@
+"""Модуль маршрутов URL для приложения trainer."""
+
 from django.urls import path
 from . import views
 
