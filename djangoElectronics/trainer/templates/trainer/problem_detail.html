@@ -1,16 +1,30 @@
 {% extends 'trainer/base.html' %}
 {% block title %}{{ problem.title }}{% endblock %}
 {% block content %}
-    <h1 class="text-2xl font-bold mb-4">{{ problem.title }}</h1>
-    <p class="mb-4">{{ problem.description }}</p>
-    <p class="mb-4">Единица измерения: {{ problem.unit }}</p>
-    {% if user.is_authenticated %}
-        <form method="POST" class="mb-4">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Отправить ответ</button>
-        </form>
-    {% else %}
-        <p>Пожалуйста, <a href="{% url 'login' %}" class="text-blue-600 hover:underline">войдите</a>, чтобы решать задачи.</p>
-    {% endif %}
+    <div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-4">{{ problem.title }}</h1>
+        <p class="mb-4">{{ problem.description }}</p>
+        <p class="mb-4">Единица измерения: {{ problem.unit }}</p>
+        {% if user.is_authenticated %}
+            <form method="POST" class="mb-4">
+                {% csrf_token %}
+                {% if form.errors %}
+                    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {{ form.as_p }}
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Отправить ответ</button>
+            </form>
+        {% else %}
+            <p>Пожалуйста, <a href="{% url 'login' %}" class="text-blue-600 hover:underline">войдите</a>, чтобы решать задачи.</p>
+        {% endif %}
+    </div>
 {% endblock %}
